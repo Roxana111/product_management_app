@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -23,6 +24,7 @@ public class ProductManagementAdminMenu {
         this.scanner = scanner;
         this.productService = productService;
     }
+
     public void showMenu() {
         boolean exitOptionNotSelected;
         do {
@@ -40,7 +42,7 @@ public class ProductManagementAdminMenu {
             System.out.println(">> ");
             exitOptionNotSelected = handleAdminChoice(scanner.nextInt());
         }
-            while (exitOptionNotSelected) ;
+        while (exitOptionNotSelected);
     }
 
     private boolean handleAdminChoice(int adminChoice) {
@@ -73,85 +75,87 @@ public class ProductManagementAdminMenu {
         }
 
     }
-    private void addNewProduct() {
+
+    private void addNewProduct() throws DateTimeParseException {
         System.out.println("--- ADD NEW PRODUCT ---");
-        System.out.println("Input the name of the product:  ");
-        String name = scanner.nextLine();
-        System.out.println("Input the price of the product: ");
-        double price = scanner.nextDouble();
+        try {
+            System.out.println("Input the name of the product:  ");
+            String name = scanner.nextLine();
+            System.out.println("Input the price of the product: ");
+            double price = scanner.nextDouble();
+            scanner.nextLine();
 
-        System.out.println("Input the best before of the product (such as \"2021-12-03\" )");
-        String date= scanner.nextLine();
-        DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate bestBefore = LocalDate.parse(date, dateTimeFormatter);
-        try{
-
-        }
-        catch(DateTimeParseException ex){
-            System.out.println("Error: "+bestBefore+"could not be parsed at index 0");
-        }
-        System.out.println("Is it a food or a drink? ");
-        String option = scanner.nextLine();
-        if (option.equalsIgnoreCase("FOOD")) {
-            //  Date date=new SimpleDateFormat("dd-MM-yyyy").parse(bestBefore);
-            System.out.println("What category is that? (CATEGORIES: [GRAIN, VEGETABLE, FRUIT, DAIRY, ANIMAL_SOURCE])");
-            String category = scanner.nextLine();
-            //FoodCategory newcategory=FoodCategory.valueOf(category.toUpperCase());
-            productService.create(name, price, bestBefore,FoodCategory.valueOf(category.toUpperCase() ));
-            System.out.println("Food "+name+ "successfully added!");
-        }
-        if(option.equalsIgnoreCase("DRINK")){
-            System.out.println("Insert the volume of the product: ");
-            double volume=scanner.nextDouble();
-            productService.create(name, price, bestBefore,volume);
-            System.out.println("Drink "+name+ "successfully added!");
+            System.out.println("Input the best before of the product (such as \"2021-12-03\" )");
+            String bestBeforeString = scanner.nextLine();
+            LocalDate bestBefore = LocalDate.parse(bestBeforeString);
+            System.out.println("Is it a food or a drink? ");
+            if ("food".equalsIgnoreCase(scanner.nextLine())) {
+                System.out.println("What category is that? CATEGORIES: " + Arrays.toString(FoodCategory.values()) + ")");
+                FoodCategory foodCategory = FoodCategory.valueOf(scanner.nextLine());
+                productService.create(name, price, bestBefore, foodCategory);
+                System.out.println("Food " + name + " successfully created!");
+            } else {
+                System.out.println("Input the volume of the drink: ");
+                double volume = scanner.nextDouble();
+                scanner.nextLine();
+                productService.create(name, price, bestBefore, volume);
+                System.out.println("Drink " + name + "successfully created! ");
+            }
+        } catch (RuntimeException ex) {
+            scanner.nextLine();
+            System.out.println("Error: " + ex.getMessage());
         }
 
 
     }
 
-    private void updateFood(){
+    private void updateFood() {
         System.out.println("Insert the ID of food to update: ");
-        int foodId= scanner.nextInt();;
+        int foodId = scanner.nextInt();
+        ;
         System.out.println("Choose the category to update (CATEGORIES: [GRAIN, VEGETABLE, FRUIT, DAIRY, ANIMAL_SOURCE])");
-        String category=scanner.nextLine();
-        FoodCategory newcategory=FoodCategory.valueOf(category.toUpperCase());
+        String category = scanner.nextLine();
+        FoodCategory newcategory = FoodCategory.valueOf(category.toUpperCase());
         try {
             productService.update(foodId, newcategory);
-            System.out.println("Product with ID "+foodId+"successfully updated!");
+            System.out.println("Product with ID " + foodId + "successfully updated!");
         } catch (ProductUpdateUnknownPropertyException e) {
-            System.out.println("Product with id "+foodId+"is not food");
+            System.out.println("Product with id " + foodId + "is not food");
         }
 
     }
-    private void updateDrink(){
+
+    private void updateDrink() {
         System.out.println("Insert the ID of drink to update: ");
-        int drinkId= scanner.nextInt();;
+        int drinkId = scanner.nextInt();
+        ;
         System.out.println("Enter the new drink volume");
-        double volume=scanner.nextDouble();
+        double volume = scanner.nextDouble();
         try {
             productService.update(drinkId, volume);
-            System.out.println("Product with ID "+drinkId+"successfully added!");
+            System.out.println("Product with ID " + drinkId + "successfully added!");
         } catch (ProductUpdateUnknownPropertyException e) {
-            System.out.println("Product with id "+drinkId+" is not a drink");
+            System.out.println("Product with id " + drinkId + " is not a drink");
         }
 
     }
-    private void removeProduct(){
+
+    private void removeProduct() {
         System.out.println("Enter the id of the product you'd want to remove ");
-        int id= scanner.nextInt();
+        int id = scanner.nextInt();
         productService.delete(id);
     }
 
-    private void viewAllProducts(){
+    private void viewAllProducts() {
         System.out.println("-----ALL EXISTING PRODUCTS------");
-        for(Product p: productService.getAll()){
+        for (Product p : productService.getAll()) {
             System.out.println(p);
         }
     }
-    private void viewAllExpiredProducts(){
+
+    private void viewAllExpiredProducts() {
         System.out.println("-----ALL EXPIRED PRODUCTS-----");
-        for(Product p: productService.getAllExpired()){
+        for (Product p : productService.getAllExpired()) {
             System.out.println(p);
         }
     }
