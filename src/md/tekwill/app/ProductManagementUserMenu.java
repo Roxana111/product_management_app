@@ -61,8 +61,9 @@ public class ProductManagementUserMenu {
 
     }
     private void printBill(){
-        System.out.println("Price total: "+cart.getPrice());
-        System.out.println("Without discount: "+ cart.getPriceWithoutDiscount());
+        System.out.println("Full price: "+cart.getPriceWithoutDiscount());
+        System.out.println("Discount: "+ cart.getSavedMoney());
+
     }
 
     private void viewAllNonExpiredProducts(){

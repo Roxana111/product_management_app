@@ -79,15 +79,7 @@ public class ProductManagementAdminMenu {
         String name = scanner.nextLine();
         System.out.println("Input the price of the product: ");
         double price = scanner.nextDouble();
-     /*  try {
 
-
-            System.out.println("Input the price of the product: ");
-             price = scanner.nextDouble();
-        }
-        catch(InputMismatchException ex){
-            System.out.println("Error: null");
-        }*/
         System.out.println("Input the best before of the product (such as \"2021-12-03\" )");
         String date= scanner.nextLine();
         DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("yyyy-MM-dd");
