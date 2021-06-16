@@ -3,7 +3,7 @@ package md.tekwill.entity.product;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Drink extends Product  {
+public class Drink extends Product {
     private static final double DISCOUNT = 0.5;
     private double volume;
 
@@ -23,7 +23,7 @@ public class Drink extends Product  {
     @Override
     public double getPriceOnBill() {
 
-       return (bestBefore.equals(LocalDate.now()) || bestBefore.equals(LocalDate.now().plusDays(1))) ? price * DISCOUNT : price;
+        return (bestBefore.equals(LocalDate.now()) || bestBefore.equals(LocalDate.now().plusDays(1))) ? price * DISCOUNT : price;
 
     }
 
@@ -44,11 +44,11 @@ public class Drink extends Product  {
 
     @Override
     public int hashCode() {
-return Objects.hash(super.hashCode(), DISCOUNT, volume);
+        return Objects.hash(super.hashCode(), DISCOUNT, volume);
     }
 
     @Override
-    public String toString(){
+    public String toString() {
 
         return getPrintText();
     }

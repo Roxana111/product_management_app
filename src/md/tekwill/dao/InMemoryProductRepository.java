@@ -71,8 +71,8 @@ public class InMemoryProductRepository implements ProductRepository {
     }
 
     @Override
-    public Product findByName(String name){
-        Product product=null;
+    public Product findByName(String name) {
+        Product product = null;
         for (Product p : productList) {
             if (p.getName().equals(name)) {
                 product = p;
@@ -84,8 +84,8 @@ public class InMemoryProductRepository implements ProductRepository {
 
     @Override
     public void update(int id, double volume) {
-        for (Product p: productList){
-            if(id==p.getId()){
+        for (Product p : productList) {
+            if (id == p.getId()) {
                 ((Drink) p).setVolume(volume);
             }
         }
@@ -94,8 +94,8 @@ public class InMemoryProductRepository implements ProductRepository {
 
     @Override
     public void update(int id, FoodCategory category) {
-        for(Product p: productList){
-            if(id==p.getId()){
+        for (Product p : productList) {
+            if (id == p.getId()) {
                 ((Food) p).setCategory(category);
             }
         }
@@ -106,12 +106,12 @@ public class InMemoryProductRepository implements ProductRepository {
     @Override
     public void delete(int id) {
         Product product = null;
-        for(Product p: productList){
-            if(p.getId()==id){
-                product=p;
+        for (Product p : productList) {
+            if (p.getId() == id) {
+                product = p;
             }
         }
-        if(product==null){
+        if (product == null) {
             throw new ProductExistsException("Unavailable ID!");
         }
         productList.remove(product);

@@ -60,52 +60,49 @@ public class ProductManagementUserMenu {
         }
 
     }
-    private void printBill(){
-        if(cart.getProductList().isEmpty()){
+
+    private void printBill() {
+        if (cart.getProductList().isEmpty()) {
             System.out.println("No products yet! ");
-        }
-        else {
+        } else {
             System.out.println("You want to purchase the following products: ");
             viewShoppingCart();
-            System.out.println("Full price: " +cart.getPriceWithoutDiscount());
-            System.out.println("DISCOUNT: "+cart.getSavedMoney());
-            System.out.println("Total to pay: "+cart.getPrice());
+            System.out.println("Full price: " + cart.getPriceWithoutDiscount());
+            System.out.println("DISCOUNT: " + cart.getSavedMoney());
+            System.out.println("Total to pay: " + cart.getPrice());
         }
 
 
     }
 
-    private void viewAllNonExpiredProducts(){
-        for(Product p: productService.getAllNonExpired()){
+    private void viewAllNonExpiredProducts() {
+        for (Product p : productService.getAllNonExpired()) {
             System.out.println(p);
         }
     }
-    private void viewShoppingCart(){
+
+    private void viewShoppingCart() {
         System.out.println("--- SHOPPING CART CONTENT ---");
-        if(cart.getProductList().isEmpty()){
+        if (cart.getProductList().isEmpty()) {
             System.out.println("Empty!");
-        }
-        else{
+        } else {
             System.out.println(cart.getProductList());
         }
 
 
-
-        }
-
+    }
 
 
-    private void addProductToShoppingCart(){
+    private void addProductToShoppingCart() {
         try {
             System.out.println("Input the id of the item to add to cart: ");
             int optionID = scanner.nextInt();
 
             cart.addProduct(productService.getById(optionID));
             System.out.println("Product with id " + optionID + " successfully added!");
-        }
-        catch(RuntimeException ex ){
+        } catch (RuntimeException ex) {
             scanner.nextLine();
-            System.out.println("Error: "+ ex.getMessage());
+            System.out.println("Error: " + ex.getMessage());
         }
     }
 }

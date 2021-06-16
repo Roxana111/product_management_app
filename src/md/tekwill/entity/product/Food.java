@@ -24,13 +24,13 @@ public class Food extends Product {
     public double getPriceOnBill() {
 
 
-     return (bestBefore.equals(LocalDate.now().plusDays(3)) ||bestBefore.equals(LocalDate.now().plusDays(2))|| bestBefore.equals(LocalDate.now().plusDays(1))||bestBefore.equals(LocalDate.now()) ) ? price * DISCOUNT : price;
+        return (bestBefore.equals(LocalDate.now().plusDays(3)) || bestBefore.equals(LocalDate.now().plusDays(2)) || bestBefore.equals(LocalDate.now().plusDays(1)) || bestBefore.equals(LocalDate.now())) ? price * DISCOUNT : price;
 
     }
 
     @Override
     public String getPrintText() {
-        return" [" + id + "]" + "FOOD:"  + name + " | " + price + " | " + bestBefore + " | " +category;
+        return " [" + id + "]" + "FOOD:" + name + " | " + price + " | " + bestBefore + " | " + category;
     }
 
 
@@ -40,7 +40,7 @@ public class Food extends Product {
         if (obj == null || getClass() != obj.getClass()) return false;
         if (!super.equals(obj)) return false;
         Food food = (Food) obj;
-        return Double.compare(food.DISCOUNT, DISCOUNT) == 0 && Objects.equals(category,food.category );
+        return Double.compare(food.DISCOUNT, DISCOUNT) == 0 && Objects.equals(category, food.category);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class Food extends Product {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
 
         return this.getPrintText();
 

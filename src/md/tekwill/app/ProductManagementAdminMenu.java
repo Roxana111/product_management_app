@@ -124,7 +124,7 @@ public class ProductManagementAdminMenu {
         }
     }
 
-        private void updateDrink () {
+    private void updateDrink() {
         try {
             System.out.println("Insert the ID of drink to update: ");
             int drinkId = scanner.nextInt();
@@ -132,35 +132,34 @@ public class ProductManagementAdminMenu {
             double volume = scanner.nextDouble();
             scanner.nextLine();
             productService.update(drinkId, volume);
-            System.out.println("Product with ID "+drinkId+" successfully updated!");
-        }
-        catch(ProductUpdateUnknownPropertyException ex){
+            System.out.println("Product with ID " + drinkId + " successfully updated!");
+        } catch (ProductUpdateUnknownPropertyException ex) {
             System.out.println(ex.getMessage());
-            }
-
-
-        }
-
-        private void removeProduct () {
-            System.out.println("Enter the id of the product you'd want to remove ");
-            int id = scanner.nextInt();
-            productService.delete(id);
-            System.out.println("Product with ID "+id+ "successfully removed!");
-        }
-
-        private void viewAllProducts () {
-            System.out.println("-----ALL EXISTING PRODUCTS------");
-            for (Product p : productService.getAll()) {
-                System.out.println(p);
-            }
-        }
-
-        private void viewAllExpiredProducts () {
-            System.out.println("-----ALL EXPIRED PRODUCTS-----");
-            for (Product p : productService.getAllExpired()) {
-                System.out.println(p);
-            }
         }
 
 
     }
+
+    private void removeProduct() {
+        System.out.println("Enter the id of the product you'd want to remove ");
+        int id = scanner.nextInt();
+        productService.delete(id);
+        System.out.println("Product with ID " + id + "successfully removed!");
+    }
+
+    private void viewAllProducts() {
+        System.out.println("-----ALL EXISTING PRODUCTS------");
+        for (Product p : productService.getAll()) {
+            System.out.println(p);
+        }
+    }
+
+    private void viewAllExpiredProducts() {
+        System.out.println("-----ALL EXPIRED PRODUCTS-----");
+        for (Product p : productService.getAllExpired()) {
+            System.out.println(p);
+        }
+    }
+
+
+}

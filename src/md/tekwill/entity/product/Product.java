@@ -1,4 +1,5 @@
 package md.tekwill.entity.product;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.time.LocalDate;

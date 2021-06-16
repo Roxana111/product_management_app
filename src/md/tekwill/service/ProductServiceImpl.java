@@ -68,12 +68,11 @@ public class ProductServiceImpl implements ProductService {
     public void update(int id, double volume) throws ProductUpdateUnknownPropertyException {
         Product product = getById(id);
         if (product instanceof Drink) {
-            productRepository.update(id,volume);
+            productRepository.update(id, volume);
             return;
         }
-        throw new ProductUpdateUnknownPropertyException("Product with id  "+id+" is not a drink!");
+        throw new ProductUpdateUnknownPropertyException("Product with id  " + id + " is not a drink!");
     }
-
 
 
     @Override
@@ -83,8 +82,9 @@ public class ProductServiceImpl implements ProductService {
             productRepository.update(id, category);
             return;
         }
-        throw new ProductUpdateUnknownPropertyException("Product with id  "+id+" is not food!");
+        throw new ProductUpdateUnknownPropertyException("Product with id  " + id + " is not food!");
     }
+
     @Override
     public void delete(int id) {
         productRepository.delete(id);
