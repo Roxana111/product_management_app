@@ -110,55 +110,55 @@ public class ProductManagementAdminMenu {
     }
 
     private void updateFood() {
-        System.out.println("Insert the ID of food to update: ");
-        int foodId = scanner.nextInt();
-        ;
-        System.out.println("Choose the category to update (CATEGORIES: [GRAIN, VEGETABLE, FRUIT, DAIRY, ANIMAL_SOURCE])");
-        String category = scanner.nextLine();
-        FoodCategory newcategory = FoodCategory.valueOf(category.toUpperCase());
         try {
-            productService.update(foodId, newcategory);
+            System.out.println("Insert the ID of food to update: ");
+            int foodId = scanner.nextInt();
+            System.out.println("Choose the category to update (CATEGORIES:" + Arrays.toString(FoodCategory.values()) + ")");
+            scanner.nextLine();
+            FoodCategory foodCategory = FoodCategory.valueOf(scanner.nextLine());
+            productService.update(foodId, foodCategory);
             System.out.println("Product with ID " + foodId + "successfully updated!");
         } catch (ProductUpdateUnknownPropertyException e) {
-            System.out.println("Product with id " + foodId + "is not food");
-        }
+            System.out.println(e.getMessage());
 
+        }
     }
 
-    private void updateDrink() {
-        System.out.println("Insert the ID of drink to update: ");
-        int drinkId = scanner.nextInt();
-        ;
-        System.out.println("Enter the new drink volume");
-        double volume = scanner.nextDouble();
+        private void updateDrink () {
         try {
+            System.out.println("Insert the ID of drink to update: ");
+            int drinkId = scanner.nextInt();
+            System.out.println("Enter the new drink volume");
+            double volume = scanner.nextDouble();
+            scanner.nextLine();
             productService.update(drinkId, volume);
-            System.out.println("Product with ID " + drinkId + "successfully added!");
-        } catch (ProductUpdateUnknownPropertyException e) {
-            System.out.println("Product with id " + drinkId + " is not a drink");
+        }
+        catch(ProductUpdateUnknownPropertyException ex){
+            System.out.println(ex.getMessage());
+            }
+
+
         }
 
-    }
-
-    private void removeProduct() {
-        System.out.println("Enter the id of the product you'd want to remove ");
-        int id = scanner.nextInt();
-        productService.delete(id);
-    }
-
-    private void viewAllProducts() {
-        System.out.println("-----ALL EXISTING PRODUCTS------");
-        for (Product p : productService.getAll()) {
-            System.out.println(p);
+        private void removeProduct () {
+            System.out.println("Enter the id of the product you'd want to remove ");
+            int id = scanner.nextInt();
+            productService.delete(id);
         }
-    }
 
-    private void viewAllExpiredProducts() {
-        System.out.println("-----ALL EXPIRED PRODUCTS-----");
-        for (Product p : productService.getAllExpired()) {
-            System.out.println(p);
+        private void viewAllProducts () {
+            System.out.println("-----ALL EXISTING PRODUCTS------");
+            for (Product p : productService.getAll()) {
+                System.out.println(p);
+            }
         }
+
+        private void viewAllExpiredProducts () {
+            System.out.println("-----ALL EXPIRED PRODUCTS-----");
+            for (Product p : productService.getAllExpired()) {
+                System.out.println(p);
+            }
+        }
+
+
     }
-
-
-}

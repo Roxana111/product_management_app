@@ -78,9 +78,9 @@ public class InMemoryProductRepository implements ProductRepository {
                 product = p;
             }
         }
-        if(product==null){
-            throw new ProductNotFoundException("Product with name "+name+" does not exist in our system! ");
-        }
+        //if(product==null){
+          //  throw new ProductNotFoundException("Product with name "+name+" does not exist in our system! ");
+       // }
         return product;
     }
 
@@ -95,9 +95,9 @@ public class InMemoryProductRepository implements ProductRepository {
                 }
                 if(!(p instanceof Drink))
                     try {
-                        throw new ProductUpdateUnknownPropertyException("Impossible update!");
+                        throw new ProductUpdateUnknownPropertyException("Product with id "+p.getId()+"is not a drink!");
                     } catch (ProductUpdateUnknownPropertyException e) {
-                        System.out.println("Impossible update!");
+                        System.out.println(e.getMessage());
                     }
             }
         }
@@ -113,11 +113,11 @@ public class InMemoryProductRepository implements ProductRepository {
                     product=(Food)p;
                     product.setCategory(category);
                 }
-                if(!(p instanceof Drink))
+                if(!(p instanceof Food))
                     try {
-                        throw new ProductUpdateUnknownPropertyException("Impossible update!");
+                        throw new ProductUpdateUnknownPropertyException("Product with id "+p.getId()+" is not a food");
                     } catch (ProductUpdateUnknownPropertyException e) {
-                        System.out.println("Impossible update! ");
+                        System.out.println(e.getMessage());
                     }
             }
         }
