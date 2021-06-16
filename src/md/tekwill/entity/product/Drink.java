@@ -22,7 +22,8 @@ public class Drink extends Product  {
 
     @Override
     public double getPriceOnBill() {
-        return (bestBefore.equals(LocalDate.now()) || bestBefore.equals(LocalDate.now().plusDays(1))) ? price * DISCOUNT : price;
+
+       return (bestBefore.equals(LocalDate.now()) || bestBefore.equals(LocalDate.now().plusDays(1))) ? price * DISCOUNT : price;
 
     }
 
@@ -48,14 +49,7 @@ return Objects.hash(super.hashCode(), DISCOUNT, volume);
 
     @Override
     public String toString(){
-    /*  return "Drink{"+
-              ",volume"+volume+
-              ",id"+id+
-              ",price="+price+
-              ",name"+name+'\''+
-              ",bestBefore"+bestBefore+
-              ",Discount"+DISCOUNT
-              +'}'; */
+
         return getPrintText();
     }
 

@@ -22,7 +22,10 @@ public class Food extends Product {
 
     @Override
     public double getPriceOnBill() {
-        return bestBefore.equals(LocalDate.now().plusDays(3))  ? price * DISCOUNT : price;
+
+
+     return (bestBefore.equals(LocalDate.now().plusDays(3)) ||bestBefore.equals(LocalDate.now().plusDays(2))|| bestBefore.equals(LocalDate.now().plusDays(1))||bestBefore.equals(LocalDate.now()) ) ? price * DISCOUNT : price;
+
     }
 
     @Override
@@ -47,14 +50,7 @@ public class Food extends Product {
 
     @Override
     public String toString(){
-       /* return "Food{"+
-                ",category"+category+
-                ",id"+id+
-                ",price="+price+
-                ",name"+name+'\''+
-                ",bestBefore"+bestBefore+
-                ",Discount"+DISCOUNT
-                +'}'; */
+
         return this.getPrintText();
 
     }

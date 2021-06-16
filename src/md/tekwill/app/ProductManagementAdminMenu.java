@@ -132,6 +132,7 @@ public class ProductManagementAdminMenu {
             double volume = scanner.nextDouble();
             scanner.nextLine();
             productService.update(drinkId, volume);
+            System.out.println("Product with ID "+drinkId+" successfully updated!");
         }
         catch(ProductUpdateUnknownPropertyException ex){
             System.out.println(ex.getMessage());
@@ -144,6 +145,7 @@ public class ProductManagementAdminMenu {
             System.out.println("Enter the id of the product you'd want to remove ");
             int id = scanner.nextInt();
             productService.delete(id);
+            System.out.println("Product with ID "+id+ "successfully removed!");
         }
 
         private void viewAllProducts () {

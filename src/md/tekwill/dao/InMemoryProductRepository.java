@@ -65,7 +65,7 @@ public class InMemoryProductRepository implements ProductRepository {
             }
         }
         if (product == null) {
-            throw new ProductNotFoundException("Product with ID " + id + " does not exist in our system!");
+            throw new ProductNotFoundException("Product with ID " + id + " not found");
         }
         return product;
     }
@@ -78,27 +78,15 @@ public class InMemoryProductRepository implements ProductRepository {
                 product = p;
             }
         }
-        //if(product==null){
-          //  throw new ProductNotFoundException("Product with name "+name+" does not exist in our system! ");
-       // }
+
         return product;
     }
 
     @Override
     public void update(int id, double volume) {
-        Drink product=null;
-        for(Product p: productList){
-            if(p.getId()==id){
-                if(p instanceof Drink) {
-                    product=(Drink)p;
-                    product.setVolume(volume);
-                }
-                if(!(p instanceof Drink))
-                    try {
-                        throw new ProductUpdateUnknownPropertyException("Product with id "+p.getId()+"is not a drink!");
-                    } catch (ProductUpdateUnknownPropertyException e) {
-                        System.out.println(e.getMessage());
-                    }
+        for (Product p: productList){
+            if(id==p.getId()){
+                ((Drink) p).setVolume(volume);
             }
         }
 
@@ -106,21 +94,12 @@ public class InMemoryProductRepository implements ProductRepository {
 
     @Override
     public void update(int id, FoodCategory category) {
-        Food product=null;
         for(Product p: productList){
-            if(p.getId()==id){
-                if(p instanceof Food) {
-                    product=(Food)p;
-                    product.setCategory(category);
-                }
-                if(!(p instanceof Food))
-                    try {
-                        throw new ProductUpdateUnknownPropertyException("Product with id "+p.getId()+" is not a food");
-                    } catch (ProductUpdateUnknownPropertyException e) {
-                        System.out.println(e.getMessage());
-                    }
+            if(id==p.getId()){
+                ((Food) p).setCategory(category);
             }
         }
+
 
     }
 

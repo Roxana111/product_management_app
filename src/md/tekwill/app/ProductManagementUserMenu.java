@@ -61,8 +61,17 @@ public class ProductManagementUserMenu {
 
     }
     private void printBill(){
-        System.out.println("Full price: "+cart.getPriceWithoutDiscount());
-        System.out.println("Discount: "+ cart.getSavedMoney());
+        if(cart.getProductList().isEmpty()){
+            System.out.println("No products yet! ");
+        }
+        else {
+            System.out.println("You want to purchase the following products: ");
+            viewShoppingCart();
+            System.out.println("Full price: " +cart.getPriceWithoutDiscount());
+            System.out.println("DISCOUNT: "+cart.getSavedMoney());
+            System.out.println("Total to pay: "+cart.getPrice());
+        }
+
 
     }
 
@@ -72,29 +81,31 @@ public class ProductManagementUserMenu {
         }
     }
     private void viewShoppingCart(){
-       /* if(cart.getProductList()!=null){
-            for(Product p:cart.getProductList())
-                System.out.println(p);*/
-
-
-
-        try{
-                if(cart.getProductList()!=null){
-                    for(Product p:cart.getProductList())
-                        System.out.println(p);
-
-
-                }
-            }
-            catch(NullPointerException ex){
-                System.out.println("The cart is empty!");
-            }
+        System.out.println("--- SHOPPING CART CONTENT ---");
+        if(cart.getProductList().isEmpty()){
+            System.out.println("Empty!");
+        }
+        else{
+            System.out.println(cart.getProductList());
         }
 
+
+
+        }
+
+
+
     private void addProductToShoppingCart(){
-        System.out.println("Choose id!");
-        int optionID=scanner.nextInt();
-        //Product p= productService.getById(optionID);
-        cart.addProduct(productService.getById(optionID));
+        try {
+            System.out.println("Input the id of the item to add to cart: ");
+            int optionID = scanner.nextInt();
+
+            cart.addProduct(productService.getById(optionID));
+            System.out.println("Product with id " + optionID + " successfully added!");
+        }
+        catch(RuntimeException ex ){
+            scanner.nextLine();
+            System.out.println("Error: "+ ex.getMessage());
+        }
     }
 }

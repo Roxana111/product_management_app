@@ -66,14 +66,25 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void update(int id, double volume) throws ProductUpdateUnknownPropertyException {
-        productRepository.update(id, volume);
+        Product product = getById(id);
+        if (product instanceof Drink) {
+            productRepository.update(id,volume);
+            return;
+        }
+        throw new ProductUpdateUnknownPropertyException("Product with id  "+id+" is not a drink!");
     }
+
+
 
     @Override
     public void update(int id, FoodCategory category) throws ProductUpdateUnknownPropertyException {
-        productRepository.update(id, category);
+        Product product = getById(id);
+        if (product instanceof Food) {
+            productRepository.update(id, category);
+            return;
+        }
+        throw new ProductUpdateUnknownPropertyException("Product with id  "+id+" is not food!");
     }
-
     @Override
     public void delete(int id) {
         productRepository.delete(id);
